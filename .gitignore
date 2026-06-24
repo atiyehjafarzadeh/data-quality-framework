@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Logs and generated reports
+reports/*.log
+reports/*.html
+reports/*.json
+!reports/.gitkeep
+
+# OS / Editor
+.DS_Store
+.vscode/

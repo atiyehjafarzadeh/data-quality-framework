@@ -1,0 +1,58 @@
+# Data Quality Framework - rules configuration
+#
+# This file is the single source of truth for what gets validated.
+# See docs/CONFIGURATION.md for the full schema reference.
+
+dataset:
+  name: customers
+
+columns:
+  customer_id:
+    type: int
+    nullable: false
+
+  full_name:
+    type: str
+    nullable: false
+
+  email:
+    type: str
+    nullable: false
+    check_email: true
+
+  signup_date:
+    type: date
+    nullable: false
+    date_format: "%Y-%m-%d"
+
+  age:
+    type: int
+    nullable: true
+    outlier_check: true
+    outlier_method: iqr
+    outlier_threshold: 1.5
+
+  annual_spend:
+    type: float
+    nullable: true
+    outlier_check: true
+    outlier_method: zscore
+    outlier_threshold: 3.0
+
+  is_active:
+    type: bool
+    nullable: true
+
+checks:
+  duplicates:
+    enabled: true
+    subset: [customer_id]
+
+scoring:
+  weights:
+    null: 0.2
+    duplicate: 0.2
+    invalid_date: 0.15
+    invalid_email: 0.15
+    dtype: 0.15
+    outlier: 0.15
